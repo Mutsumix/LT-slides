@@ -15,18 +15,7 @@ style: |
     line-height: 1.6;
   }
 
-  /* 解決策1: タイトル幅に合わせた下線 */
-  section h1.title-underline {
-    color: #2c3e50;
-    font-weight: 600;
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    display: inline-block;
-    width: fit-content;
-  }
-
-  /* 解決策2: 縦棒デザイン */
+  /* 縦棒デザイン */
   section h1 {
     color: #2c3e50;
     font-weight: 600;
@@ -94,19 +83,16 @@ style: |
       center center;
     background-size:
       cover,
-      cover; /* 例: 全体を覆うように調整 */
-    /* 表紙ページ特有の他のスタイルがあればここに追加 */
-    /* 例: テキストの色を白にするなど */
-    /* color: white; */
+      cover;
     background-position:
       top right,
-      bottom right; /* <- メイン背景の基準位置 */
+      bottom right;
     background-size:
       1280px,
-      500px; /* <- メイン背景のサイズ */
+      500px;
   }
 
-    /* グラデーション背景の大項目スライド */
+  /* グラデーション背景の大項目スライド */
   section.section-title {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
@@ -145,9 +131,6 @@ style: |
     text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
   }
 
-
-
-
   /* 吹き出しのスタイル */
   .balloon-left {
     position: relative;
@@ -158,7 +141,7 @@ style: |
     max-width: 100%;
     color: #555;
     background: #e0edff;
-    border-radius: 20px; /* 角を丸くする */
+    border-radius: 20px;
     text-align: center;
   }
 
@@ -184,7 +167,7 @@ style: |
     min-width: 120px;
     max-width: 100%;
     color: #555;
-    border-radius: 20px; /* 角を丸くする */
+    border-radius: 20px;
     background: #e0edff;
   }
 
