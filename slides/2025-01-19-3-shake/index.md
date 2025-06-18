@@ -10,6 +10,78 @@ style: |
   section {
     font-size: 28px;
     background-repeat: no-repeat /* 共通 */;
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #fafafa;
+    line-height: 1.6;
+  }
+
+  /* 解決策1: タイトル幅に合わせた下線 */
+  section h1.title-underline {
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  /* 解決策2: 縦棒デザイン */
+  section h1 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  section h1::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #3498db 0%, #667eea 100%);
+    border-radius: 3px;
+  }
+
+  section h2 {
+    color: #34495e;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  section h3 {
+    color: #7f8c8d;
+    font-weight: 500;
+  }
+
+  section strong {
+    color: #e74c3c;
+    font-weight: 600;
+  }
+
+  section li {
+    margin: 0.5rem 0;
+  }
+
+  section pre {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e8ed;
+    font-size: 0.9em;
+  }
+
+  section code {
+    background: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    color: #e74c3c;
   }
 
   /* 表紙ページの背景 */
@@ -33,6 +105,47 @@ style: |
       1280px,
       500px; /* <- メイン背景のサイズ */
   }
+
+    /* グラデーション背景の大項目スライド */
+  section.section-title {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  section.section-title h1 {
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.3);
+    -webkit-text-stroke: 1px rgba(0,0,0,0.2);
+    /* 下線デザイン */
+    border-bottom: 3px solid rgba(255,255,255,0.8);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    width: fit-content;
+    position: static; /* 縦棒の::beforeを無効化 */
+    padding-left: 0; /* 縦棒用の左paddingを削除 */
+  }
+
+  section.section-title h1::before {
+    display: none; /* 縦棒を非表示 */
+  }
+
+  section.section-title h2 {
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    margin-top: 2rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  }
+
+
 
 
   /* 吹き出しのスタイル */
@@ -118,11 +231,7 @@ style: |
 ---
 
 <!--
-header: 地味に効く、ドキュメント作成のAI活用術 | Mutsumix
--->
-
-<!--
-footer: 2025-06-19 | 生成 AI と働く— エンジニア現場でのリアルな活用方法
+footer: 地味に効く、ドキュメント作成のAI活用術 | Mutsumix
 -->
 
 <style scoped>
@@ -150,9 +259,13 @@ footer: 2025-06-19 | 生成 AI と働く— エンジニア現場でのリアル
 
 ---
 
+<!-- _class: section-title -->
+
 # コードは AI に任せられるようになりました
 
 ---
+
+<!-- _class: section-title -->
 
 # 開発ドキュメントは？
 
@@ -188,7 +301,9 @@ PowerPointでAWS構成図描いてる...
 
 ---
 
-# AI 時代、ドキュメントは <br>Markdown 記法で書くことが進んでいくと勝手に予想
+# AI 時代、ドキュメントは Markdown 記法で<br>書くことが一般化する
+
+と勝手に予想。文章を構造化して表現できるので、意図を適切に AI に汲み取らせやすい
 
 ## 現状：
 
@@ -197,10 +312,6 @@ README.md、Notion、Slack、Zenn、Qiita、GitHub Issues
 ## 今後：
 
 設計書、仕様書、議事録、マニュアル、提案書
-
-### なぜなら
-
-文章を構造化して表現できるので、意図を適切に AI に汲み取らせやすい
 
 ---
 
@@ -226,18 +337,16 @@ README.md、Notion、Slack、Zenn、Qiita、GitHub Issues
 
 ---
 
-# 実演してみます 🎬
+# 実演 🎬
 
-## Terraform コードから構成図を生成
+Terraform コードから構成図を生成
 
 ```hcl
-# VPC
 resource "aws_vpc" "demo_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
-# EC2 Instance
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = "t3.micro"
@@ -265,6 +374,8 @@ resource "aws_instance" "web_server" {
 
 ---
 
+## 待っている間に
+
 <div style="text-align: center;">
   <img src="./curry.drawio.png"  height="500  px" >
 </div>
@@ -280,11 +391,6 @@ resource "aws_instance" "web_server" {
 
 ---
 
-<style scoped>
-  section {
-    text-align: center;
-    font-size: 48px;
-  }
-</style>
+<!-- _class: section-title -->
 
 # ありがとうございました 🙏
