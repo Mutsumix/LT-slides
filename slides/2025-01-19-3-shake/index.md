@@ -391,7 +391,7 @@ resource "aws_instance" "web_server" {
 
 ## 指示文
 
-「この Terraform コードを元に、AWS 構成図を.drawio ファイルで作成してください。最新 AWS のアイコンを利用してください。」
+「この Terraform コードを元に、AWS 構成図を.drawio 形式で出力してください。最新 AWS のアイコンを利用してください。」
 
 ---
 
