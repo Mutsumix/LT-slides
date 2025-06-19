@@ -80,7 +80,13 @@ section.cover {
 
 /* グラデーション背景の大項目スライド */
 section.section-title {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: radial-gradient(circle at 20% 80%,
+    #1a252f 0%,
+    #2c3e50 15%,
+    #34495e 30%,
+    #4a6fa5 50%,
+    #667eea 70%,
+    #3b82f6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +123,7 @@ section.section-title h2 {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
 
-/* 吹き出しコンポーネント */
+/* 吹き出しコンポーネント（オリジナル改良版） */
 .balloon-left {
   position: relative;
   display: inline-block;
@@ -125,10 +131,15 @@ section.section-title h2 {
   padding: 32px 64px;
   min-width: 120px;
   max-width: 100%;
-  color: #555;
-  background: #e0edff;
+  color: #444;
+  background: linear-gradient(145deg, #e8f2ff 0%, #d0e7ff 100%);
+  border: 2px solid rgba(52, 152, 219, 0.2);
   border-radius: 20px;
   text-align: center;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .balloon-left:before {
@@ -138,7 +149,19 @@ section.section-title h2 {
   left: -60px;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-right: 50px solid #e0edff;
+  border-right: 50px solid #d0e7ff;
+  filter: drop-shadow(-2px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.balloon-left:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -58px;
+  margin-top: -13px;
+  border: 13px solid transparent;
+  border-right: 48px solid rgba(52, 152, 219, 0.2);
+  z-index: -1;
 }
 
 .balloon-left p {
@@ -153,9 +176,14 @@ section.section-title h2 {
   padding: 32px 64px;
   min-width: 120px;
   max-width: 100%;
-  color: #555;
+  color: #444;
+  background: linear-gradient(145deg, #fff2e8 0%, #ffe7d0 100%);
+  border: 2px solid rgba(243, 156, 18, 0.2);
   border-radius: 20px;
-  background: #e0edff;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .balloon-right:before {
@@ -165,7 +193,19 @@ section.section-title h2 {
   left: 100%;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-left: 50px solid #e0edff;
+  border-left: 50px solid #ffe7d0;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.balloon-right:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 98%;
+  margin-top: -13px;
+  border: 13px solid transparent;
+  border-left: 48px solid rgba(243, 156, 18, 0.2);
+  z-index: -1;
 }
 
 .balloon-right p {

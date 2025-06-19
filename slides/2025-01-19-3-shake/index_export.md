@@ -94,13 +94,7 @@ style: |
 
     /* グラデーション背景の大項目スライド */
   section.section-title {
-    background: radial-gradient(circle at 20% 80%,
-      #1a252f 0%,
-      #2c3e50 15%,
-      #34495e 30%,
-      #4a6fa5 50%,
-      #667eea 70%,
-      #3b82f6 100%);
+    background: #2c3e50;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,7 +140,7 @@ style: |
     min-width: 120px;
     max-width: 100%;
     color: #444;
-    background: linear-gradient(145deg, #e8f2ff 0%, #d0e7ff 100%);
+    background: #d0e7ff;
     border: 2px solid rgba(52, 152, 219, 0.2);
     border-radius: 20px;
     text-align: center;
@@ -190,7 +184,7 @@ style: |
     min-width: 120px;
     max-width: 100%;
     color: #444;
-    background: linear-gradient(145deg, #fff2e8 0%, #ffe7d0 100%);
+    background: #ffe7d0;
     border: 2px solid rgba(243, 156, 18, 0.2);
     border-radius: 20px;
     box-shadow:
