@@ -391,18 +391,16 @@ resource "aws_instance" "web_server" {
 
 ## 指示文
 
-「この Terraform コードを元に、AWS 構成図を.drawio ファイルで作成してください。最新 AWS のアイコンを利用してください。ファイル名は aws_structure.drawio.png としてください。」
+「この Terraform コードを元に、AWS 構成図を.drawio ファイルで作成してください。最新 AWS のアイコンを利用してください。」
 
 ---
 
 <!-- ![AWS構成図](./aws.drawio.png) -->
 
-## 結果（例）
-
-手直しすれば、使えそう
+## 結果
 
 <div style="text-align: center;">
-  <img src="./images/aws.drawio.png"  height="500  px" >
+  <img src="./images/aws_structure.drawio.png"  height="500  px" >
 </div>
 
 ---
