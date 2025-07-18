@@ -1,7 +1,35 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(git:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(pwd:*)",
+      "Bash(cd:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(npm:*)",
+      "Bash(node:*)",
+      "Bash(python:*)",
+      "Bash(make:*)",
+      "Bash(jq:*)",
+      "Bash(curl:*)",
+      "Bash(echo:*)",
+      "Bash(vercel:*)",
+      "Bash(gh:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:vercel.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:npmjs.com)",
+      "WebFetch(domain:nextjs.org)",
+      "WebFetch(domain:zenn.dev)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }
