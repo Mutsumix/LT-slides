@@ -3,20 +3,22 @@
 @import 'default';
 
 section {
-  font-size: 28px;
+  align-content: start;
+  font-size: 26px;
   background-repeat: no-repeat /* 共通 */;
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #fafafa;
-  line-height: 1.6;
+  line-height: 1.4;
+  /* padding-top: 1rem; */
 }
 
 /* 縦棒デザイン */
 section h1 {
   color: #2c3e50;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 1rem;
 }
 
 section h1::before {
