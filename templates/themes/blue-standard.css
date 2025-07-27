@@ -4,12 +4,12 @@
 
 section {
   align-content: start;
-  font-size: 26px;
+  font-size: 28px;
   background-repeat: no-repeat /* 共通 */;
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #fafafa;
-  line-height: 1.4;
-  /* padding-top: 1rem; */
+  line-height: 1;
+  padding-top: 2rem;
 }
 
 /* 縦棒デザイン */
@@ -34,7 +34,7 @@ section h1::before {
 
 section h2 {
   color: #34495e;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
@@ -54,16 +54,16 @@ section li {
 }
 
 section pre {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #e8ecf4 0%, #9fbcea 100%);
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #e1e8ed;
   font-size: 0.9em;
 }
 
 section code {
-  background: #f8f9fa;
+  background: #fafaf8;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
@@ -193,4 +193,54 @@ tr:nth-child(even) {
 .comparison-matrix th {
   background-color: #34495e;
   color: white;
+}
+
+/* 引用ブロックスタイル */
+section blockquote {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 6px solid #0c0b0b;
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  font-style: italic;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* section blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #e74c3c;
+  opacity: 0.3;
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-family: Georgia, serif;
+  line-height: 1;
+} */
+
+section blockquote p {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+section blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* 引用元の記載がある場合 */
+section blockquote cite {
+  display: block;
+  text-align: right;
+  margin-top: 1rem;
+  font-style: normal;
+  font-size: 0.9em;
+  color: #7f8c8d;
+}
+
+section blockquote cite::before {
+  content: '— ';
 }
