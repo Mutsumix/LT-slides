@@ -8,7 +8,7 @@ author: 梶原睦
 ---
 # Wi-Fi情報
 
-![bg right:25% 80% ](./image/cover.png)
+<!-- ![bg right:25% 80% ](./image/cover.png) -->
 
 - SSID: 
 - PW:
