@@ -51,6 +51,12 @@ jobs:
         with:
           node-version: '20'
       
+      - name: Install Japanese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+          fc-cache -fv
+      
       - name: Install Marp CLI
         run: npm install -g @marp-team/marp-cli
       
