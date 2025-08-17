@@ -69,7 +69,7 @@ jobs:
             # push時：変更されたマークダウンのみ
             echo "🔍 Detecting changed markdown files..."
             echo "files<<EOF" >> $GITHUB_OUTPUT
-            git diff --name-only HEAD^ HEAD | grep -E "slides/.*\.md$" || true >> $GITHUB_OUTPUT
+            (git diff --name-only HEAD^ HEAD | grep -E "slides/.*\.md$" || true) >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           elif [ "${{ github.event.inputs.target }}" == "specific" ]; then
             # 手動実行：特定ファイル
@@ -85,7 +85,7 @@ jobs:
             # 手動実行：最近の変更
             echo "🕒 Processing recently changed files..."
             echo "files<<EOF" >> $GITHUB_OUTPUT
-            git diff --name-only HEAD~5 HEAD | grep -E "slides/.*\.md$" || true >> $GITHUB_OUTPUT
+            (git diff --name-only HEAD~5 HEAD | grep -E "slides/.*\.md$" || true) >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           fi
       
