@@ -1,0 +1,172 @@
+name: Marp to PDF
+
+on:
+  # プッシュ時：変更されたファイルのみ処理
+  push:
+    paths:
+      - 'slides/**/*.md'
+      - 'templates/themes/*.css'
+  
+  # 手動実行：特定ファイルまたは全体を選択可能
+  workflow_dispatch:
+    inputs:
+      target:
+        description: '処理対象'
+        required: true
+        type: choice
+        options:
+          - 'changed'     # 最近変更されたファイルのみ
+          - 'specific'    # 特定のファイルを指定
+          - 'all'        # 全てのマークダウン
+        default: 'specific'
+      slide_path:
+        description: 'スライドのパス (targetがspecificの場合のみ使用)'
+        required: false
+        type: string
+      theme:
+        description: 'テーマ選択 (空欄の場合はマークダウン内の指定を使用)'
+        required: false
+        type: choice
+        options:
+          - ''  # マークダウン内の指定を使用
+          - 'blue-standard'
+          - 'modern-japanese'
+        default: ''
+
+jobs:
+  convert-to-pdf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # 変更検出のため
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+      
+      - name: Setup theme directory
+        run: |
+          mkdir -p .marp-themes
+          cp templates/themes/*.css .marp-themes/
+          echo "📎 Available themes:"
+          ls -la .marp-themes/
+      
+      - name: Determine files to process
+        id: files
+        run: |
+          # 処理対象のファイルを決定
+          if [ "${{ github.event_name }}" == "push" ]; then
+            # push時：変更されたマークダウンのみ
+            echo "🔍 Detecting changed markdown files..."
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            git diff --name-only HEAD^ HEAD | grep -E "slides/.*\.md$" || true >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.target }}" == "specific" ]; then
+            # 手動実行：特定ファイル
+            echo "📌 Processing specific file..."
+            echo "files=${{ github.event.inputs.slide_path }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.target }}" == "all" ]; then
+            # 手動実行：全ファイル
+            echo "📚 Processing all markdown files..."
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            find slides -name "*.md" -type f >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.target }}" == "changed" ]; then
+            # 手動実行：最近の変更
+            echo "🕒 Processing recently changed files..."
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            git diff --name-only HEAD~5 HEAD | grep -E "slides/.*\.md$" || true >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Convert to PDF
+        if: steps.files.outputs.files != ''
+        run: |
+          # ファイルリストを処理
+          echo "🎯 処理対象ファイル:"
+          echo "${{ steps.files.outputs.files }}"
+          echo ""
+          
+          # 各ファイルをPDFに変換
+          echo "${{ steps.files.outputs.files }}" | while IFS= read -r file; do
+            if [ -z "$file" ] || [ ! -f "$file" ]; then
+              continue
+            fi
+            
+            echo "📄 Converting: $file"
+            output_dir=$(dirname "$file")
+            output_name=$(basename "$file" .md)
+            
+            # テーマオプションの設定（デフォルト: blue-standard）
+            if [ "${{ github.event.inputs.theme }}" != "" ]; then
+              # 手動指定がある場合
+              theme_opt="--theme .marp-themes/${{ github.event.inputs.theme }}.css"
+              echo "   Using theme: ${{ github.event.inputs.theme }}"
+            else
+              # デフォルト: blue-standard.cssを使用
+              theme_opt="--theme .marp-themes/blue-standard.css --theme-set .marp-themes/"
+              echo "   Using default theme: blue-standard"
+            fi
+            
+            # Marp実行
+            marp "$file" \
+              $theme_opt \
+              --pdf \
+              --allow-local-files \
+              -o "${output_dir}/${output_name}.pdf"
+            
+            if [ $? -eq 0 ]; then
+              echo "✅ Generated: ${output_dir}/${output_name}.pdf"
+            else
+              echo "❌ Failed to generate PDF for: $file"
+            fi
+            echo ""
+          done
+      
+      - name: List generated PDFs
+        run: |
+          echo "📊 生成されたPDFファイル:"
+          find slides -name "*.pdf" -type f -mmin -5 2>/dev/null | while read pdf; do
+            size=$(du -h "$pdf" | cut -f1)
+            echo "  - $pdf ($size)"
+          done || echo "  (なし)"
+      
+      - name: Upload PDFs as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides-pdf-${{ github.run_number }}
+          path: slides/**/*.pdf
+          if-no-files-found: warn
+          retention-days: 30
+      
+      - name: Commit PDFs (main branch only)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # 新しく生成されたPDFのみをステージング
+          git add slides/**/*.pdf
+          
+          # 変更がある場合のみコミット
+          if git diff --staged --quiet; then
+            echo "📝 No PDF changes to commit"
+          else
+            files_changed=$(git diff --staged --name-only | wc -l)
+            git commit -m "📄 Auto-generate PDFs from Markdown
+            
+            Generated $files_changed PDF file(s) from:
+            ${{ steps.files.outputs.files }}"
+            git push
+            echo "✅ PDFs committed to repository"
+          fi
