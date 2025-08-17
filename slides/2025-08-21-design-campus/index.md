@@ -2,14 +2,14 @@
 marp: true
 paginate: true
 theme: blue-standard
-title: DESIGN CAMPUS プレゼンテーション
+title: MarpとClaudeとGitHubと私
 description: 2025-08-21 | DESIGN CAMPUS
 author: 梶原睦
 ---
 
 <!-- _class: cover -->
 
-# DESIGN CAMPUS
+# MarpとClaudeとGitHubと私
 
 ## 軽率にスライドをつくりたい
 
