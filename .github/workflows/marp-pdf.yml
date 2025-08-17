@@ -155,8 +155,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # 新しく生成されたPDFのみをステージング
-          git add slides/**/*.pdf
+          # 新しく生成されたPDFのみをステージング（.gitignoreを無視）
+          git add -f slides/**/*.pdf
           
           # 変更がある場合のみコミット
           if git diff --staged --quiet; then
