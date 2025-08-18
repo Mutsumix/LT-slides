@@ -2,7 +2,7 @@
 marp: true
 paginate: true
 theme: blue-standard
-title: AIコー池袋最高！第四木曜もくもく会ドチェックが面倒すぎるのでテスト駆動開発で解決しようとして読んだら、根本的に俺の勘違いだった
+title: 池袋最高！第四木曜もくもく会
 description: 2025-07-31 | #イケブクロ電脳組
 author: 梶原睦
 ---
