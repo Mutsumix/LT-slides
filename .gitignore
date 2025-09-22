@@ -45,4 +45,6 @@ build/
 qr.png
 
 # Slides
-slides/2025-08-12-anshin-works-modernize/
+slides/private/
+
+*.pdf
